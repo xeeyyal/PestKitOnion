@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PestKitOnionAB104.Application.Abstractions.Repositories;
 using PestKitOnionAB104.Application.Abstractions.Services;
 using PestKitOnionAB104.Application.DTOs.Author;
+using PestKitOnionAB104.Application.DTOs.Authors;
 using PestKitOnionAB104.Domain.Entities;
 
 namespace PestKitOnionAB104.Persistence.Implementations.Services
@@ -60,6 +61,14 @@ namespace PestKitOnionAB104.Persistence.Implementations.Services
             _repository.SoftDelete(author);
             await _repository.SaveChangesAsync();
         }
-        
+
+        public async Task<AuthorGetDto> GetAsync(int id)
+        {
+            Author author = await _repository.GetByIdAsync(id);
+            if (author is null) throw new Exception("Not found");
+            var dto=_mapper.Map<AuthorGetDto>(author);
+
+            return dto;
+        }
     }
 }

@@ -19,13 +19,13 @@ namespace PestKitOnionAB104.Api.Controllers
         {
             return Ok(await _service.GetAllAsync(page, take));
         }
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> Get(int id)
-        //{
-        //    if (id <= 0) return StatusCode(StatusCodes.Status400BadRequest);
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            if (id <= 0) return StatusCode(StatusCodes.Status400BadRequest);
 
-        //    return StatusCode(StatusCodes.Status200OK, await _service.GetAsync(id));
-        //}
+            return StatusCode(StatusCodes.Status200OK, await _service.GetAsync(id));
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] DepartmentCreateDto departmentCreateDto)

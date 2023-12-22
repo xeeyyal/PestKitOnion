@@ -4,6 +4,7 @@ using PestKitOnionAB104.Application.Abstractions.Repositories;
 using PestKitOnionAB104.Application.Abstractions.Services;
 using PestKitOnionAB104.Application.DTOs.Department;
 using PestKitOnionAB104.Application.DTOs.Position;
+using PestKitOnionAB104.Application.DTOs.Positions;
 using PestKitOnionAB104.Application.DTOs.Tag;
 using PestKitOnionAB104.Domain.Entities;
 
@@ -60,6 +61,16 @@ namespace PestKitOnionAB104.Persistence.Implementations.Services
             if (position is null) throw new Exception("Not found");
             _repository.SoftDelete(position);
             await _repository.SaveChangesAsync();
+        }
+
+        public async Task<PositionGetDto> GetAsync(int id)
+        {
+            Position position = await _repository.GetByIdAsync(id);
+            if (position is null) throw new Exception("Not found");
+
+            var dto= _mapper.Map<PositionGetDto>(position);
+
+            return dto;
         }
     }
 }

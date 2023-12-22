@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using PestKitOnionAB104.Application.Abstractions.Repositories;
 using PestKitOnionAB104.Application.Abstractions.Services;
 using PestKitOnionAB104.Application.DTOs.Position;
+using PestKitOnionAB104.Application.DTOs.Positions;
 using PestKitOnionAB104.Application.DTOs.Tag;
+using PestKitOnionAB104.Application.DTOs.Tags;
 using PestKitOnionAB104.Domain.Entities;
 
 namespace PestKitOnionAB104.Persistence.Implementations.Services
@@ -58,6 +60,15 @@ namespace PestKitOnionAB104.Persistence.Implementations.Services
             if (tag is null) throw new Exception("Not found");
             _repository.SoftDelete(tag);
             await _repository.SaveChangesAsync();
+        }
+
+        public async Task<TagGetDto> GetAsync(int id)
+        {
+            Tag tag = await _repository.GetByIdAsync(id);
+            if (tag is null) throw new Exception("Not found");
+            var dto = _mapper.Map<TagGetDto>(tag);
+
+            return dto;
         }
     }
 }

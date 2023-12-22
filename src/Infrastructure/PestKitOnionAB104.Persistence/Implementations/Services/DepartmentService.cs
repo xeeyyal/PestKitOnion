@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using PestKitOnionAB104.Application.Abstractions.Repositories;
 using PestKitOnionAB104.Application.Abstractions.Services;
 using PestKitOnionAB104.Application.DTOs.Author;
+using PestKitOnionAB104.Application.DTOs.Authors;
 using PestKitOnionAB104.Application.DTOs.Department;
+using PestKitOnionAB104.Application.DTOs.Departments;
 using PestKitOnionAB104.Application.DTOs.Position;
 using PestKitOnionAB104.Domain.Entities;
 
@@ -61,17 +63,13 @@ namespace PestKitOnionAB104.Persistence.Implementations.Services
             _repository.SoftDelete(department);
             await _repository.SaveChangesAsync();
         }
-        //public async Task<GetCategoryDto> GetAsync(int id)
-        //{
-        //    Category category = await _repository.GetByIdAsync(id);
+        public async Task<DepartmentGetDto> GetAsync(int id)
+        {
+            Department department = await _repository.GetByIdAsync(id);
+            if (department is null) throw new Exception("Not found");
+            var dto = _mapper.Map<DepartmentGetDto>(department);
 
-        //    if (category is null) throw new Exception("Not found");
-
-        //    return new GetCategoryDto()
-        //    {
-        //        Id = category.Id,
-        //        Name = category.Name,
-        //    };
-        //}
+            return dto;
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using PestKitOnionAB104.Application.DTOs.Author;
-using PestKitOnionAB104.Application.DTOs.Department;
 
 namespace PestKitOnionAB104.Application.Abstractions.Services
 {
@@ -10,5 +9,6 @@ namespace PestKitOnionAB104.Application.Abstractions.Services
         Task CreateAsync(AuthorCreateDto authorCreateDto);
         Task UpdateAsync(int id, AuthorUpdateDto authorUpdateDto);
         Task DeleteAsync(int id);
+        Task SoftDeleteAsync(int id);
     }
 }

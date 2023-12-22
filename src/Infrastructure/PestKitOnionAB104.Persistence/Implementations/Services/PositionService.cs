@@ -28,7 +28,7 @@ namespace PestKitOnionAB104.Persistence.Implementations.Services
 
         public async Task<ICollection<PositionItemDto>> GetAllAsync(int page, int take)
         {
-            ICollection<Position> positions = await _repository.GetAllAsync(skip: (page - 1) * take, take: take, IsTracking: false).ToListAsync();
+            ICollection<Position> positions = await _repository.GetAllAsync(skip: (page - 1) * take, take: take, IsTracking: false, IsDeleted:true).ToListAsync();
 
             ICollection<PositionItemDto> positionItemDtos = _mapper.Map<ICollection<PositionItemDto>>(positions);
 
@@ -54,17 +54,12 @@ namespace PestKitOnionAB104.Persistence.Implementations.Services
             _repository.Delete(position);
             await _repository.SaveChangesAsync();
         }
-        //public async Task<GetCategoryDto> GetAsync(int id)
-        //{
-        //    Category category = await _repository.GetByIdAsync(id);
-
-        //    if (category is null) throw new Exception("Not found");
-
-        //    return new GetCategoryDto()
-        //    {
-        //        Id = category.Id,
-        //        Name = category.Name,
-        //    };
-        //}
+        public async Task SoftDeleteAsync(int id)
+        {
+            Position position = await _repository.GetByIdAsync(id);
+            if (position is null) throw new Exception("Not found");
+            _repository.SoftDelete(position);
+            await _repository.SaveChangesAsync();
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace PestKitOnionAB104.Application.Abstractions.Services
         Task CreateAsync(PositionCreateDto positionCreateDto);
         Task UpdateAsync(int id, PositionUpdateDto positionUpdateDto);
         Task DeleteAsync(int id);
+        Task SoftDeleteAsync(int id);
     }
 }

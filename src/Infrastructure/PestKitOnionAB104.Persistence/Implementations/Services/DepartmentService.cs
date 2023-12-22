@@ -28,7 +28,7 @@ namespace PestKitOnionAB104.Persistence.Implementations.Services
 
         public async Task<ICollection<DepartmentItemDto>> GetAllAsync(int page, int take)
         {
-            ICollection<Department> departments = await _repository.GetAllAsync(skip: (page - 1) * take, take: take, IsTracking: false).ToListAsync();
+            ICollection<Department> departments = await _repository.GetAllAsync(skip: (page - 1) * take, take: take, IsTracking: false, IsDeleted: true).ToListAsync();
 
             ICollection<DepartmentItemDto> departmentItemDtos = _mapper.Map<ICollection<DepartmentItemDto>>(departments);
 
@@ -52,6 +52,13 @@ namespace PestKitOnionAB104.Persistence.Implementations.Services
             if (department is null) throw new Exception("Not found");
 
             _repository.Delete(department);
+            await _repository.SaveChangesAsync();
+        }
+        public async Task SoftDeleteAsync(int id)
+        {
+            Department department = await _repository.GetByIdAsync(id);
+            if (department is null) throw new Exception("Not found");
+            _repository.SoftDelete(department);
             await _repository.SaveChangesAsync();
         }
         //public async Task<GetCategoryDto> GetAsync(int id)

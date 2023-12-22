@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using PestKitOnionAB104.Application.Abstractions.Repositories;
 using PestKitOnionAB104.Application.Abstractions.Services;
 using PestKitOnionAB104.Application.DTOs.Author;
-using PestKitOnionAB104.Application.DTOs.Department;
 using PestKitOnionAB104.Domain.Entities;
 
 namespace PestKitOnionAB104.Persistence.Implementations.Services
@@ -28,7 +27,7 @@ namespace PestKitOnionAB104.Persistence.Implementations.Services
 
         public async Task<ICollection<AuthorItemDto>> GetAllAsync(int page, int take)
         {
-            ICollection<Author> authors = await _repository.GetAllAsync(skip: (page - 1) * take, take: take, IsTracking: false).ToListAsync();
+            ICollection<Author> authors = await _repository.GetAllAsync(skip: (page - 1) * take, take: take, IsTracking: false, IsDeleted: true).ToListAsync();
 
             ICollection<AuthorItemDto> authorItemDtos = _mapper.Map<ICollection<AuthorItemDto>>(authors);
 
@@ -54,17 +53,13 @@ namespace PestKitOnionAB104.Persistence.Implementations.Services
             _repository.Delete(author);
             await _repository.SaveChangesAsync();
         }
-        //public async Task<GetCategoryDto> GetAsync(int id)
-        //{
-        //    Category category = await _repository.GetByIdAsync(id);
-
-        //    if (category is null) throw new Exception("Not found");
-
-        //    return new GetCategoryDto()
-        //    {
-        //        Id = category.Id,
-        //        Name = category.Name,
-        //    };
-        //}
+        public async Task SoftDeleteAsync(int id)
+        {
+            Author author = await _repository.GetByIdAsync(id);
+            if (author is null) throw new Exception("Not found");
+            _repository.SoftDelete(author);
+            await _repository.SaveChangesAsync();
+        }
+        
     }
 }

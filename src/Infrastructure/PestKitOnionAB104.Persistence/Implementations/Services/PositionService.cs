@@ -1,0 +1,70 @@
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using PestKitOnionAB104.Application.Abstractions.Repositories;
+using PestKitOnionAB104.Application.Abstractions.Services;
+using PestKitOnionAB104.Application.DTOs.Department;
+using PestKitOnionAB104.Application.DTOs.Position;
+using PestKitOnionAB104.Application.DTOs.Tag;
+using PestKitOnionAB104.Domain.Entities;
+
+namespace PestKitOnionAB104.Persistence.Implementations.Services
+{
+    public class PositionService : IPositionService
+    {
+        private readonly IPositionRepository _repository;
+        private readonly IMapper _mapper;
+
+        public PositionService(IPositionRepository repository, IMapper mapper)
+        {
+            _repository = repository;
+            _mapper = mapper;
+        }
+        public async Task CreateAsync(PositionCreateDto positionCreateDto)
+        {
+            await _repository.AddAsync(_mapper.Map<Position>(positionCreateDto));
+
+            await _repository.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<PositionItemDto>> GetAllAsync(int page, int take)
+        {
+            ICollection<Position> positions = await _repository.GetAllAsync(skip: (page - 1) * take, take: take, IsTracking: false).ToListAsync();
+
+            ICollection<PositionItemDto> positionItemDtos = _mapper.Map<ICollection<PositionItemDto>>(positions);
+
+            return positionItemDtos;
+        }
+        public async Task UpdateAsync(int id, PositionUpdateDto positionUpdateDto)
+        {
+            Position position = await _repository.GetByIdAsync(id);
+
+            if (position is null) throw new Exception("Not found");
+
+            position.Name = positionUpdateDto.Name;
+
+            _repository.Update(position);
+            await _repository.SaveChangesAsync();
+        }
+        public async Task DeleteAsync(int id)
+        {
+            Position position = await _repository.GetByIdAsync(id);
+
+            if (position is null) throw new Exception("Not found");
+
+            _repository.Delete(position);
+            await _repository.SaveChangesAsync();
+        }
+        //public async Task<GetCategoryDto> GetAsync(int id)
+        //{
+        //    Category category = await _repository.GetByIdAsync(id);
+
+        //    if (category is null) throw new Exception("Not found");
+
+        //    return new GetCategoryDto()
+        //    {
+        //        Id = category.Id,
+        //        Name = category.Name,
+        //    };
+        //}
+    }
+}

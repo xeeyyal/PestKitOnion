@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\PestKitOnionAB104.Application\PestKitOnionAB104.Application.csproj" />
     <ProjectReference Include="..\..\Core\PestKitOnionAB104.Domain\PestKitOnionAB104.Domain.csproj" />
   </ItemGroup>
 

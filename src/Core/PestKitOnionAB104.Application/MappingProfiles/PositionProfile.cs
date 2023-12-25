@@ -18,6 +18,7 @@ namespace PestKitOnionAB104.Application.MappingProfiles
             CreateMap<Position, PositionItemDto>();
             CreateMap<Position, PositionGetDto>();
             CreateMap<PositionCreateDto, Position>();
+            CreateMap<Position, IncludePositionDto>();
         }
     }
 }

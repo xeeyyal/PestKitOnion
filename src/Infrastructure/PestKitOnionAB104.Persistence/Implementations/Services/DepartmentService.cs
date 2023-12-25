@@ -30,7 +30,7 @@ namespace PestKitOnionAB104.Persistence.Implementations.Services
 
         public async Task<ICollection<DepartmentItemDto>> GetAllAsync(int page, int take)
         {
-            ICollection<Department> departments = await _repository.GetAllAsync(skip: (page - 1) * take, take: take, IsTracking: false, IsDeleted: true).ToListAsync();
+            ICollection<Department> departments = await _repository.GetAllWhere(skip: (page - 1) * take, take: take, IsTracking: false, isDeleted: true).ToListAsync();
 
             ICollection<DepartmentItemDto> departmentItemDtos = _mapper.Map<ICollection<DepartmentItemDto>>(departments);
 

@@ -43,15 +43,18 @@ namespace PestKitOnionAB104.Persistence.Implementations.Repositories.Generic
             return _context.SaveChangesAsync();
         }
 
-        public IQueryable<T> GetAllAsync(
-            Expression<Func<T, bool>>? expression = null, 
-            Expression<Func<T, object>>? orderExpression = null, 
-            bool IsDescending = false, 
-            int skip = 0, 
-            int take = 0, 
-            bool IsTracking = true,
-            bool IsDeleted = false,
-            params string[] includes)
+        public IQueryable<T> GetAll(bool IsTracking = true, bool isDeleted = false, params string[] includes)
+        {
+            IQueryable<T> query = _table;
+
+            query = _addIncludes(query, includes);
+
+            if (isDeleted) query = query.IgnoreQueryFilters();
+
+            return IsTracking ? query : query.AsNoTracking();
+        }
+
+        public IQueryable<T> GetAllWhere(Expression<Func<T, bool>>? expression = null, Expression<Func<T, object>>? orderExpression = null, bool IsDescending = false, int skip = 0, int take = 0, bool IsTracking = true, bool isDeleted = false, params string[] includes)
         {
             var query = _table.AsQueryable();
 
@@ -70,6 +73,25 @@ namespace PestKitOnionAB104.Persistence.Implementations.Repositories.Generic
 
             if (take != 0) query = query.Take(take);
 
+            query = _addIncludes(query, includes);
+
+            if (isDeleted) query = query.IgnoreQueryFilters();
+            return IsTracking ? query : query.AsNoTracking();
+        }
+        public async Task<T> GetByIdAsync(int id, bool IsTarcking = true, bool isDeleted = false, params string[] includes)
+        {
+            IQueryable<T> query = _table.Where(x => x.Id == id);
+
+            query = _addIncludes(query, includes);
+
+            if (!IsTarcking) query = query.AsNoTracking();
+
+            if (isDeleted) query = query.IgnoreQueryFilters();
+
+            return await query.FirstOrDefaultAsync();
+        }
+        private IQueryable<T> _addIncludes(IQueryable<T> query, params string[] includes)
+        {
             if (includes is not null)
             {
                 for (int i = 0; i < includes.Length; i++)
@@ -77,8 +99,8 @@ namespace PestKitOnionAB104.Persistence.Implementations.Repositories.Generic
                     query = query.Include(includes[i]);
                 }
             }
-            if (IsDeleted) query = query.IgnoreQueryFilters();
-            return IsTracking ? query : query.AsNoTracking();
-        } 
+            return query;
+        }
+
     }
 }

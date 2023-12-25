@@ -6,11 +6,6 @@ using PestKitOnionAB104.Application.Abstractions.Services;
 using PestKitOnionAB104.Persistence.Contexts;
 using PestKitOnionAB104.Persistence.Implementations.Repositories;
 using PestKitOnionAB104.Persistence.Implementations.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PestKitOnionAB104.Persistence.ServiceRegistration
 {
@@ -24,11 +19,13 @@ namespace PestKitOnionAB104.Persistence.ServiceRegistration
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IPositionRepository, PositionRepository>();
             services.AddScoped<ITagRepository, TagRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IPositionService, PositionService>();
             services.AddScoped<ITagService, TagService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
 
             return services;
         }

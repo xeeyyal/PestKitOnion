@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PestKitOnionAB104.Application.Abstractions.Services;
 using PestKitOnionAB104.Application.DTOs.Author;
-using PestKitOnionAB104.Application.DTOs.Department;
 
 namespace PestKitOnionAB104.Api.Controllers
 {

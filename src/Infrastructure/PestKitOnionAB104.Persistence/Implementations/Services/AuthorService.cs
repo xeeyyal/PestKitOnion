@@ -28,7 +28,7 @@ namespace PestKitOnionAB104.Persistence.Implementations.Services
 
         public async Task<ICollection<AuthorItemDto>> GetAllAsync(int page, int take)
         {
-            ICollection<Author> authors = await _repository.GetAllAsync(skip: (page - 1) * take, take: take, IsTracking: false, IsDeleted: true).ToListAsync();
+            ICollection<Author> authors = await _repository.GetAllWhere(skip: (page - 1) * take, take: take, IsTracking: false, isDeleted: true).ToListAsync();
 
             ICollection<AuthorItemDto> authorItemDtos = _mapper.Map<ICollection<AuthorItemDto>>(authors);
 

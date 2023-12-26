@@ -2,16 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using PestKitOnionAB104.Application.Abstractions.Repositories;
 using PestKitOnionAB104.Application.Abstractions.Services;
-using PestKitOnionAB104.Application.DTOs.Author;
-using PestKitOnionAB104.Application.DTOs.Authors;
 using PestKitOnionAB104.Application.DTOs.Department;
 using PestKitOnionAB104.Application.DTOs.Departments;
-using PestKitOnionAB104.Application.DTOs.Position;
 using PestKitOnionAB104.Domain.Entities;
 
 namespace PestKitOnionAB104.Persistence.Implementations.Services
 {
-    public class DepartmentService:IDepartmentService
+    public class DepartmentService : IDepartmentService
     {
         private readonly IDepartmentRepository _repository;
         private readonly IMapper _mapper;
@@ -23,7 +20,7 @@ namespace PestKitOnionAB104.Persistence.Implementations.Services
         }
         public async Task CreateAsync(DepartmentCreateDto departmentCreateDto)
         {
-            
+
             await _repository.AddAsync(_mapper.Map<Department>(departmentCreateDto));
             await _repository.SaveChangesAsync();
         }

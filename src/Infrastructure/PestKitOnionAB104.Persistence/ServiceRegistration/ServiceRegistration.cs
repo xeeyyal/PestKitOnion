@@ -20,12 +20,15 @@ namespace PestKitOnionAB104.Persistence.ServiceRegistration
             services.AddScoped<IPositionRepository, PositionRepository>();
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IBlogRepository, BlogRepository>();
+
 
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IPositionService, PositionService>();
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IBlogService, BlogService>();
 
             return services;
         }

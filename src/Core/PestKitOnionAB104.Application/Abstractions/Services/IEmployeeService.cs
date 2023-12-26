@@ -9,8 +9,9 @@ namespace PestKitOnionAB104.Application.Abstractions.Services
     {
         Task<IEnumerable<EmployeeItemDto>> GetAllPaginatedAsync(int page, int take);
         Task<EmployeeGetDto> GetByIdAsync(int id);
-        //Task CreateAsync(EmployeeCreateDto employeeCreateDto);
-        //Task UpdateAsync(int id, EmployeeUpdateDto employeeUpdateDto);
+        Task CreateAsync(EmployeeCreateDto employeeCreateDto);
+        Task UpdateAsync(int id, EmployeeUpdateDto employeeUpdateDto);
+        Task DeleteAsync(int id);
+        Task SoftDeleteAsync(int id);
     }
 }
-

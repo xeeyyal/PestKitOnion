@@ -9,9 +9,10 @@ namespace PestKitOnionAB104.Application.MappingProfiles
     {
         public AuthorProfile()
         {
-            CreateMap<Author, AuthorItemDto>();
-            CreateMap<Author, AuthorGetDto>();
-            CreateMap<AuthorCreateDto, Author>();
+            CreateMap<Author, AuthorItemDto>().ReverseMap();
+            CreateMap<Author, AuthorGetDto>().ReverseMap();
+            CreateMap<AuthorCreateDto, Author>().ReverseMap();
+            CreateMap<IncludeAuthorDto, Author>().ReverseMap();
         }
     }
 }

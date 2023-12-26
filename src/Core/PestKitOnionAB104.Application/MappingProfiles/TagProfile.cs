@@ -9,9 +9,10 @@ namespace PestKitOnionAB104.Application.MappingProfiles
     {
         public TagProfile()
         {
-            CreateMap<Tag, TagItemDto>();
-            CreateMap<Tag, TagGetDto>();
-            CreateMap<TagCreateDto, Tag>();
+            CreateMap<Tag, TagItemDto>().ReverseMap();
+            CreateMap<Tag, TagGetDto>().ReverseMap();
+            CreateMap<TagCreateDto, Tag>().ReverseMap();
+            CreateMap<IncludeTagDto, Tag>().ReverseMap();
         }
     }
 }

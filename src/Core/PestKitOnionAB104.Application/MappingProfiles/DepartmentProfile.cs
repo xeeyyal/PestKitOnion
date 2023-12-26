@@ -9,10 +9,10 @@ namespace PestKitOnionAB104.Application.MappingProfiles
     {
         public DepartmentProfile()
         {
-            CreateMap<Department, DepartmentItemDto>();
-            CreateMap<Department, DepartmentGetDto>();
-            CreateMap<DepartmentCreateDto, Department>();
-            CreateMap<Department, IncludeDepartmentDto>();
+            CreateMap<Department, DepartmentItemDto>().ReverseMap();
+            CreateMap<Department, DepartmentGetDto>().ReverseMap();
+            CreateMap<DepartmentCreateDto, Department>().ReverseMap();
+            CreateMap<Department, IncludeDepartmentDto>().ReverseMap();
         }
     }
 }

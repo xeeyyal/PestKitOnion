@@ -1,4 +1,4 @@
 ﻿namespace PestKitOnionAB104.Application.DTOs.Tag
 {
-    public record TagUpdateDto(string Name);
+    public record TagUpdateDto(string Name, int BlogId, ICollection<int> BlogIds);
 }

@@ -28,6 +28,7 @@ namespace PestKitOnionAB104.Persistence.Contexts
             modelBuilder.Entity<Author>().HasQueryFilter(c => c.IsDeleted == false);
             modelBuilder.Entity<Tag>().HasQueryFilter(c => c.IsDeleted == false);
             modelBuilder.Entity<Employee>().HasQueryFilter(c => c.IsDeleted == false);
+            modelBuilder.Entity<Blog>().HasQueryFilter(c => c.IsDeleted == false);
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 

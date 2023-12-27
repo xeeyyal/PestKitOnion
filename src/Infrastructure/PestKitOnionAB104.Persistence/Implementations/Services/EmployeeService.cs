@@ -46,7 +46,7 @@ namespace PestKitOnionAB104.Persistence.Implementations.Services
 
             if (employee is null) throw new Exception("Not found");
 
-            employee.Name = employeeUpdateDto.Name;
+            employee = _mapper.Map(employeeUpdateDto,employee);
 
             _repository.Update(employee);
             await _repository.SaveChangesAsync();

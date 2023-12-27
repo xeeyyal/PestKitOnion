@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\PestKitOnionAB104.Application\PestKitOnionAB104.Application.csproj" />
-    <ProjectReference Include="..\..\Core\PestKitOnionAB104.Domain\PestKitOnionAB104.Domain.csproj" />
   </ItemGroup>
 
 </Project>
